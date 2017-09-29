@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="../../css/animate.css" />
+		<style>
+			p {
+				font-size: 50px;
+				/*color: red;*/
+			}
+			
+			.fade-enter-active,
+			.fade-leave-active {
+				transition: all 5s
+			}
+			/*opacity 0->1->0*/
+			
+			.fade-enter-to,
+			.fade-leave {
+				font-size: 50px;
+				opacity: 1;
+				/*color: red;*/
+			}
+			
+			.fade-enter,
+			.fade-leave-to
+			/* .fade-leave-active in below version 2.1.8 */
+			
+			{
+				/*color: green;*/
+				font-size: 0;
+				opacity: 0
+			}
+			
+			.bounce-enter-active {
+				animation-fill-mode: both;
+				animation: zoomOutUp 1s;
+			}
+			
+			.bounce-leave-active {
+				animation-fill-mode: both;
+				animation: zoomOutDown 1s;
+			}
+			
+			h1 {
+				color: red
+			}
+		</style>
+	</head>
+
+	<body>
+		<!--动画 v-if v-show v-for-->
+		<div id="demo">
+			<select></select>
+			<table></table>
+			<input v-model="searchQuery" />
+			<transition-group name="fade" tag="ul">
+				<li v-for="f in filteredUsers" :key="f.age">{{f.name}}{{f.age}}</li>
+			</transition-group>
+		</div>
+		<script src="../../js/vue.js"></script>
+		<script>
+			new Vue({
+				el: "#demo",
+				data: {
+					isShow: true,
+					users: [{
+						name: "laoyao",
+						age: 18
+					}, {
+						name: "laolan",
+						age: 19
+					}, {
+						name: "laoxie",
+						age: 16
+					}],
+					searchQuery: "",
+				},
+				computed: {
+					filteredUsers: function() {
+						var self = this;
+						return self.users.filter(function(user) {
+							return user.name.indexOf(self.searchQuery) !== -1
+						})
+					}
+				}
+			})
+		</script>
+	</body>
+
+</html>

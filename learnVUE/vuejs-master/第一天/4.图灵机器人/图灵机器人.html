@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="demo">
+			<!--v-->
+			<input v-model="ask" />
+			<button @click="submit()">发送</button>
+			<p>{{text}}</p>
+		</div>
+		<script src="../../js/vue.js"></script>
+		<script src="../../js/jquery.js"></script>
+		<script>
+			//view--v-model-->model--ajax-->mysql---->model--v-text/{{}}-->view
+			new Vue({
+				el:"#demo",
+				data:{
+					//m
+					ask:"",
+					text:""
+				},
+				methods:{
+					submit:function(){
+						//m->sql
+						//sql->m
+						console.log(this.ask);
+						var self = this;
+						$.ajax({
+							type:"get",
+							url:"http://www.tuling123.com/openapi/api?key=c75ba576f50ddaa5fd2a87615d144ecf",
+							data:{
+								info:self.ask
+							},
+							async:true,
+							success:function(data){
+								console.log(data)
+								self.text = data.text
+							}
+						});
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

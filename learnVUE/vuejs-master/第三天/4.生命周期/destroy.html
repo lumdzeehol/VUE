@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="demo">
+		</div>
+		<script src="../../js/vue.js"></script>
+		<script src="../../js/jquery.js"></script>
+		<script>
+			Vue.component("xheader",{
+				template:`
+					<header>头部组件</header>
+				`,
+				beforeDestroy(){
+					console.log("头部组件销毁前")
+				},
+				destroyed(){
+					console.log("头部组件销毁后")
+				}
+			})
+			var demo = new Vue({
+				el:"#demo",
+				data:{
+					name:"laoyao",
+					nn:null,
+					bool:true
+				},
+				template:`
+					<div>
+						<xheader v-if="bool"></xheader>
+						<button @click="bool=!bool">OK</button>
+					</div>
+				`,
+				directives:{
+					in(el){
+						$(el).css("color","red")
+						console.log()
+					}
+				},
+				filters:{
+					
+				}
+				
+			})
+		</script>
+	</body>
+</html>

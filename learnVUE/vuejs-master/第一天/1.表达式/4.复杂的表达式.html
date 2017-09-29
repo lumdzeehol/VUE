@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="demo">
+			<p style="color: red;">1.渲染文本</p>
+			<p>{{text}}</p>
+			<p :name="text">123</p>
+			
+			
+			<p style="color: red;">2.渲染对象</p>
+			<p>{{obj.name}}</p>
+			<p>{{obj.skill}}</p>
+			
+			<p style="color: red;">3.渲染数组</p>
+			<p>{{arr[0]}}</p>
+			<p>{{arr[1]}}</p>
+			
+			<p style="color: red;">4.渲染数字</p>
+			<p>￥{{num+1}}.00</p>
+			
+			<p style="color: red;">5.渲染布尔值</p>
+			<p>{{bool?"真":"假"}}</p>
+			<p :class="{'red':!bool}"></p>
+			<p class="red">红色</p>
+			<!--<img src="    ../img/1.jpg" /><script>alert(123)</script><img src="../img/1.jpg      " />-->
+			<img :src="img" />
+		</div>
+		<script src="../js/vue.js"></script>
+		<script>
+			new Vue({
+				//elemente获取节点
+				el:"#demo",
+				//数据模型 Model
+				data:{
+					text:"hello world",//string
+					obj:{
+						name:"laoyao",
+						skill:"PS"//object
+					},
+					arr:["a","b","c"],//array
+					num:12345,//number
+					bool:true,
+					color:"red",
+					img:"../img/1.jpg"
+				}
+			})
+		</script>
+	</body>
+</html>

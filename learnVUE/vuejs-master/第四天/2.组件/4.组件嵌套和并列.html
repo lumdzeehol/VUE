@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<!--vuex-->
+		<div id="demo"></div>
+		<script src="../../js/vue.js"></script>
+		<script>
+			//全局
+			Vue.component("x-header",{
+				//props:["message","name"],
+				props:{
+					message:Number,
+					name:[String, Number]
+				},
+				template:`
+					<div>
+						<header>{{name}}</header>
+						<fbt :name="name"></fbt>
+					</div>
+				`,
+				data(){
+					return {
+						//name:"laoxie"
+					}
+				},
+				//局部
+				components:{
+					"fbt":{
+						props:["name"],
+						template:`
+							<div>
+								<input v-model="name" />
+								<header>{{name}}</header>
+							</div>
+						`,
+					}
+				}
+			})
+			new Vue({
+				el:"#demo",
+				data:{
+					name:"laoyao",
+					num:1
+				},
+				template:`
+					<div>
+						<input v-model="name" />
+						<x-header :message="num" :name="name"></x-header>
+					</div>
+				`
+			})
+		</script>
+	</body>
+</html>

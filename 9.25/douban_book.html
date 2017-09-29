@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=0.5, maximum-scale=1.0, minimum-scale=1.0" />
+        <style type="text/css">
+            *{
+                margin: 0;
+                padding: 0;
+            }
+            ul,li{
+                list-style: none;
+            }
+            html,body{
+                width: 100%;
+                height: 100%;
+            }
+            body{
+                display: flex;
+                flex-direction: column;
+            }
+            .fl{
+                float: left;
+            }
+            .fr{
+                float: right;
+            }
+            .clearfix{
+                content: "";
+                height: 0;
+                overflow: hidden;
+                clear: both;
+                display: block;
+                visibility:hidden;
+            }
+            header{
+                height: 64px;
+                width: 100%;
+                background: #009A61;
+            }
+            #main{
+                flex: 1;
+                overflow-y: auto;
+            }
+            #container{
+                
+            }
+            .bookCell{
+                height: 84px;
+                position: relative;
+                padding-top: 10px;
+                border-bottom: 1px solid #eee;
+            }
+            .iconWrap{
+                width: 65px;
+                height: 65px;
+                border-radius: 8px;
+                overflow: hidden;
+                margin: 0 0 0 10px;
+                border: 1px solid #ddd;
+            }
+            .icon{
+                width: 65px;
+                height: 65px;
+                background-position: center;
+            }
+            .movieDes{
+                padding-left: 10px;
+                padding-top: 10px;
+                width: 150px;
+                height: 100%;
+            }
+            .title{
+                font-size: 14px;
+                margin-bottom: 15px;
+                color: #666;
+            }
+            .genres{
+                color: #cdcdcd;
+                font-size: 12px;
+            }
+            .buyWrap{
+                padding-top: 20px;
+                margin-right: 20px;
+            }
+            .buy{
+                border-radius: 6px;
+                text-align: center;
+                line-height: 22px;
+                width: 50px;
+                height: 22px;
+               font-size: 14px;
+               border: 2px solid deeppink;
+               color: deeppink;
+            }
+            footer{
+                border-top: 1px solid #ddd;
+                height: 44px;
+                background: #fafafa;
+            }
+        </style>
+        <script src="jquery.js" type="text/javascript"></script>
+    </head>
+    <body>
+        <header>
+            
+        </header>
+        <div id="main">
+            <div id="container">
+                <div class="bookCell" v-for="item in movielist">
+                    <div :class="{fl:true}"  class="iconWrap">
+                        <div class="icon" :style="{'background': 'url('+item.images.small+')'}"></div>
+                    </div>
+                    <div class="movieDes fl">
+                        <p class="title">{{item['title']|capitalize}}</p>
+                        <p class="genres"><span v-for="gen in item['genres']">{{gen}},</span></p>
+                    </div>
+                    <div class="buyWrap fr">
+                        <div class="buy">购买</div>
+                    </div>
+                </div>
+            </div>
+            <script src="vue.js" type="text/javascript"></script>
+            <script type="text/javascript">
+                var app = new Vue({
+                    el: "#container",
+                    data: {
+                        movielist: [],
+                    },
+                    methods: {
+
+                    }
+                });
+            </script>
+    
+            <script type="text/javascript">
+            $.ajax({
+                url: 'https://api.douban.com/v2/movie/in_theaters',
+                type: 'GET',
+                dataType: 'jsonp',
+                jsonp: 'callback',
+            })
+            .done(function(data) {
+                console.log(data);
+                app.movielist = data['subjects'];
+            });
+            
+            </script>
+        </div>
+        <footer>
+        </footer>
+    </body>
+</html>
+<!-- 
+       {
+           "rating": {
+               "max": 10,
+               "average": 7.1,
+               "stars": "35",
+               "min": 0
+           },
+           "genres": [
+               "剧情",
+               "动作",
+               "科幻"
+           ],
+           "title": "猩球崛起3：终极之战",
+           "casts": [
+               {
+                   "alt": "https://movie.douban.com/celebrity/1002708/",
+                   "avatars": {
+                       "small": "https://img3.doubanio.com/img/celebrity/small/1375081883.31.jpg",
+                       "large": "https://img3.doubanio.com/img/celebrity/large/1375081883.31.jpg",
+                       "medium": "https://img3.doubanio.com/img/celebrity/medium/1375081883.31.jpg"
+                   },
+                   "name": "安迪·瑟金斯",
+                   "id": "1002708"
+               },
+               {
+                   "alt": "https://movie.douban.com/celebrity/1053560/",
+                   "avatars": {
+                       "small": "https://img3.doubanio.com/img/celebrity/small/501.jpg",
+                       "large": "https://img3.doubanio.com/img/celebrity/large/501.jpg",
+                       "medium": "https://img3.doubanio.com/img/celebrity/medium/501.jpg"
+                   },
+                   "name": "伍迪·哈里森",
+                   "id": "1053560"
+               },
+               {
+                   "alt": "https://movie.douban.com/celebrity/1035639/",
+                   "avatars": {
+                       "small": "https://img3.doubanio.com/img/celebrity/small/7723.jpg",
+                       "large": "https://img3.doubanio.com/img/celebrity/large/7723.jpg",
+                       "medium": "https://img3.doubanio.com/img/celebrity/medium/7723.jpg"
+                   },
+                   "name": "史蒂夫·茨恩",
+                   "id": "1035639"
+               }
+           ],
+           "collect_count": 65769,
+           "original_title": "War for the Planet of the Apes",
+           "subtype": "movie",
+           "directors": [
+               {
+                   "alt": "https://movie.douban.com/celebrity/1045032/",
+                   "avatars": {
+                       "small": "https://img3.doubanio.com/img/celebrity/small/18161.jpg",
+                       "large": "https://img3.doubanio.com/img/celebrity/large/18161.jpg",
+                       "medium": "https://img3.doubanio.com/img/celebrity/medium/18161.jpg"
+                   },
+                   "name": "马特·里夫斯",
+                   "id": "1045032"
+               }
+           ],
+           "year": "2017",
+           "images": {
+               "small": "https://img3.doubanio.com/view/movie_poster_cover/ipst/public/p2494093630.webp",
+               "large": "https://img3.doubanio.com/view/movie_poster_cover/lpst/public/p2494093630.webp",
+               "medium": "https://img3.doubanio.com/view/movie_poster_cover/spst/public/p2494093630.webp"
+           },
+           "alt": "https://movie.douban.com/subject/25808075/",
+           "id": "25808075"
+       }, -->

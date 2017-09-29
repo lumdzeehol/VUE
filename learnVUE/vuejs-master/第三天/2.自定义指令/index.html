@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="demo">
+			<!--<p v-color="'blue'">{{name}}</p>
+			<p v-color="'yellow'">111</p>-->
+			
+			<p v-showw="false">{{name}}</p>
+			<input v-model="" />
+		</div>
+		<script src="../../js/vue.js"></script>
+		<script>
+			/*{{|ed}}
+				Vue.filter*/
+			Vue.directive("showw",function(el,binding){
+				console.log(el)
+				console.log(binding.value)
+				if(binding.value){
+					el.style.display = "block";
+				}else{
+					el.style.display = "none";
+				}
+			})
+			Vue.directive("color", function(el,binding) {
+				//el节点
+				console.log(el)
+				console.log(binding)
+				el.style.color = binding.value
+			})
+			new Vue({
+				el: "#demo",
+				data: {
+					name: "laoyao"
+				}
+			})
+		</script>
+	</body>
+
+</html>

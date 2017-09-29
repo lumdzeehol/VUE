@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			#father{
+				border: 1px solid red;
+				padding: 50px;
+			}
+			#child{
+				border: 1px solid green;
+				padding: 50px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="demo">
+			
+		</div>
+		<script src="../../js/vue.js"></script>
+		<script>
+			var bus = new Vue();
+			Vue.component("child",{
+				template:`
+					<div id="child">
+						<header>头部</header>
+						<input v-model="name" />
+						<button @click="toFather">子传父</button>
+						<p>{{name}}</p>
+					</div>
+				`,
+				data(){
+					return {
+						name:""
+					}
+				},
+				methods:{
+					toFather(){
+						bus.$emit("toFather",this.name)
+					}
+				},
+				mounted(){
+					bus.$on("toChild",function(data){
+						this.name = data
+					}.bind(this))
+				}
+			})
+			new Vue({
+				el:"#demo",
+				data:{
+					name:"laoyao"
+				},
+				template:`
+					<div id="father">
+						<input v-model="name" />
+						<button @click="toChild">父传子</button>
+						<child></child>
+					</div>
+				`,
+				methods:{
+					toChild(){
+						bus.$emit("toChild",this.name)
+					}
+				},
+				mounted(){
+					bus.$on("toFather",function(data){
+						this.name = data
+					}.bind(this))
+				}
+			})
+		</script>
+	</body>
+</html>

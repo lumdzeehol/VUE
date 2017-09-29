@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div class="demo">
+			<p style="color: red;">1.v-text</p>
+			<p v-text="name"></p>
+			
+			<p style="color: red;">2.v-if</p>
+			<!--display none block-->
+			<p v-if="bool">显示这一块</p>
+			<button @click="bool=!bool">OK</button>
+			<p v-if="bool">加载中...</p>
+			<p>{{bool?"加载中...":"加载完成"}}</p>
+			
+			<p style="color: red;">3.v-for</p>
+			<!--map,join,html-->
+			<ul>
+				<li v-for="a in arr">名字:{{a.name}}   技能:{{a.skill}}</li>
+			</ul>
+			<select>
+				<option v-for="a in arr" :value="a.skill">{{a.name}}</option>
+			</select>
+			<table>
+				<tr>
+					<th>名字</th>
+					<th>技能</th>
+				</tr>
+				<tr v-for="a in arr">
+					<th>{{a.name}}</th>
+					<th>{{a.skill}}</th>
+				</tr>
+			</table>
+		</div>
+		<script src="../js/vue.js"></script>
+		<script>
+			new Vue({
+				el:".demo",
+				data:{
+					name:"laoyao",
+					bool:true,
+					arr:["a","b","c"],
+					arr:[{
+						name:"laoyao",
+						skill:"PS"
+					},{
+						name:"laoxie",
+						skill:"JS"
+					},{
+						name:"laolan",
+						skill:"CSS"
+					}]
+				},
+				mounted:function(){
+					var self = this;
+					setTimeout(function(){
+						self.bool = !self.bool
+					},1000)
+				}
+			})
+		</script>
+	</body>
+</html>

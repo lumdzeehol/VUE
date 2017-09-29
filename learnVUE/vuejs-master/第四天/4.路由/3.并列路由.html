@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<div id="demo">
+			<!--<a href="#/home">home</a>-->
+			<router-link to="/home">home</router-link>
+			<a href="#/setting">setting</a>
+
+			<button @click="toHome">home</button>
+			<router-view></router-view>
+			<router-view name="a"></router-view>
+			<router-view name="b"></router-view>
+		</div>
+		<script src="../../js/vue.js"></script>
+		<script src="../../js/vue-router.js"></script>
+		<script>
+			//window.location.href = "#/home"
+			//1.定义组件
+			var xhome = {
+				template: "<p>xhome页面</p>"
+			}
+			var xsetting = {
+				template: "<p>xsetting页面</p>"
+			}
+			var a = {
+				template: "<p>a</p>"
+			}
+			var b = {
+				template: "<p>b</p>"
+			}
+			var c = {
+				template: "<p>c</p>"
+			}
+			var d = {
+				template: "<p>d</p>"
+			}
+
+			//2. 定义路由
+			var routes = [{
+					path: '/',
+					redirect: '/setting'
+				}, {
+					path: '/home',
+					components: {
+						default: xhome,
+						a: a,
+						b: b
+					}
+				},
+				{
+					path: '/setting',
+					components: {
+						default: xsetting,
+						a: c,
+						b: d
+					}
+				}
+			]
+
+			//3. 创建 router 实例，然后传 `routes` 配置
+			var router = new VueRouter({
+				routes // （缩写）相当于 routes: routes
+			})
+
+			new Vue({
+				el: "#demo",
+				components: {
+
+				},
+				router,
+				methods: {
+					toHome() {
+						router.push('home')
+					}
+				}
+			})
+		</script>
+	</body>
+
+</html>

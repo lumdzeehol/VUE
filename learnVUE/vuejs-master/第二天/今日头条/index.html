@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+		<title></title>
+		<link rel="stylesheet" href="css/weui.css" />
+		<link rel="stylesheet" href="css/base.css" />
+
+	</head>
+	<style>
+		[v-cloak] {
+			display: none;
+		}
+	</style>
+
+	<body>
+		<div id="news" v-cloak>
+			<router-view></router-view>
+		</div>
+		<script src="../../js/vue.js"></script>
+		<script src="../../js/vue-router.js"></script>
+		<script src="../../js/jquery.js"></script>
+		<script src="components/xhome.js"></script>
+		<script>
+			var xdetail = {
+				template: `
+					<div>
+						<p>详情页</p>
+					</div>
+				`,
+				mounted(){
+					console.log(this.$route.params)
+				}
+			}
+			var router = new VueRouter({
+				//mode: 'history',
+				routes: [{
+						path: '/home',
+						component: xhome
+					},
+					{
+						//动态路由
+						path: '/detail/:id/:name',
+						component: xdetail
+					}
+				]
+			})
+
+			Vue.directive("focuss", function(el) {
+				el.addEventListener("click", function() {
+					console.log(el)
+					document.querySelector("#searchInput").focus()
+				})
+			})
+			new Vue({
+				el: "#news",
+				router
+			})
+		</script>
+	</body>
+	<!--webpack vue vuex vue-router es6 weui axios nodejs-->
+	<!--requirejs vue jquery-->
+
+</html>

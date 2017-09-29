@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<style>
+		#tab {
+			display: flex;
+		}
+		
+		#tab div {
+			flex: 1;
+			height: 30px;
+			line-height: 30px;
+			text-align: center;
+		}
+		
+		.page {
+			text-align: center;
+		}
+		
+		.active {
+			border-bottom: 1px solid red;
+		}
+	</style>
+	<body>
+		<div id="demo">
+			<div id="tab">
+				<div @click="show(1)" :class="{'active':page1}">第一页</div>
+				<div @click="show(2)" :class="{'active':page2}">第二页</div>
+			</div>
+			<div class="page" v-if="page1">1</div>
+			<div class="page" v-if="page2">2</div>
+		</div>
+		<script src="../../js/vue.js"></script>
+		<script>
+			new Vue({
+				el:"#demo",
+				data:{
+					page1:true,
+					page2:false,
+				},
+				methods:{
+					show:function(page){
+						console.log(page)
+						if(page==1){
+							this.page1 = true;
+							this.page2 = false;
+						}else{
+							this.page1 = false;
+							this.page2 = true;
+						}
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<style>
+		.xheader {
+			border: 1px solid #58bc58;
+		}
+		
+		.x-container {
+			border: 1px solid red;
+		}
+		
+		.x-footer {
+			border: 1px solid blue;
+		}
+	</style>
+
+	<body>
+		<div id="demo">
+		</div>
+		<script src="../../js/vue.js"></script>
+		<script>
+			//Vue.component(tagName, options)
+			//组件名字不要跟原生标签名重复
+			Vue.component("xheader", {
+				template: `
+					<div class="xheader">
+					<input v-model="title" />
+						<header>{{title}}</header>
+						<p>副标题</p>
+						<button @click="ok">OK</button>
+					</div>
+				`,
+				data(){
+					//data必须是函数
+					return {
+						title:"头部"
+					}
+				},
+				methods:{
+					ok(){
+						console.log("okok")
+					}
+				}
+				/*methods
+				mounted
+				filters
+				directives
+				components*/
+			})
+			//构造器
+			new Vue({
+				el: "#demo",
+				template: `
+					<div>
+						<xheader></xheader>
+						<xheader></xheader>
+						<xheader></xheader>
+						<xheader></xheader>
+						<xheader></xheader>
+					</div>
+				`,
+			})
+		</script>
+	</body>
+
+</html>

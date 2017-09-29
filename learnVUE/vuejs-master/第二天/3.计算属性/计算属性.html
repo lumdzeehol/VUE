@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<!--ng2 ng4 es5 es6 jsx typescript-->
+		<div id="demo">
+			<input v-model="searchQuery" />
+			<p>{{numm}}</p>
+			<p>{{limit}}</p>
+			<ul>
+				<li v-for="f in filteredUsers">{{f.name}}{{f.age}}</li>
+			</ul>
+		</div>
+		<script src="../../js/vue.js"></script>
+		<script>
+			new Vue({
+				el: "#demo",
+				data: {
+					//model
+					num: 123,
+					fh: "￥",
+					str: "abcdefghijk",
+					users:[{
+						name:"laoyao",
+						age:18
+					},{
+						name:"laolan",
+						age:19
+					},{
+						name:"laoxie",
+						age:16
+					}],
+					searchQuery:"",
+				},
+				computed: {
+					numm() {
+						return this.fh + this.num
+					},
+					limit() {
+						return this.str.slice(0, 5)
+					},
+					filteredUsers: function() {
+						//计算属性里面的所有制都可以从Model模型里面获取，然后计算出一个新的值出来
+						var self = this;
+						return self.users.filter(function(user) {
+							return user.name.indexOf(self.searchQuery) !== -1
+						})
+					}
+				}
+			})
+		</script>
+	</body>
+
+</html>

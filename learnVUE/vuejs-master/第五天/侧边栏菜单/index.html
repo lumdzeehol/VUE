@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="../../css/weui.css" />
+	</head>
+	<style>
+		header {
+			background-color: red;
+			text-align: center;
+			color: white;
+			width: 100%;
+			line-height: 50px;
+			height: 50px;
+		}
+		
+		.fade-enter-active,
+		.fade-leave-active {
+			transition: all .5s
+		}
+		/*opacity 0->1->0*/
+		
+		.fade-enter-to,
+		.fade-leave {
+			font-size: 20px;
+			opacity: 1;
+			transform: rotate(360deg);
+		}
+		
+		.fade-enter,
+		.fade-leave-to
+		/* .fade-leave-active in below version 2.1.8 */
+		
+		{
+			font-size: 0;
+			opacity: 0;
+			transform: rotate(0);
+		}
+	</style>
+
+	<body>
+		<div id="demo">
+			<xheader></xheader>
+			<xdialog></xdialog>
+		</div>
+		<script src="../../js/vue.js"></script>
+		<script src="../../js/vuex.js"></script>
+		<script>
+			var store = new Vuex.Store({
+				state: {
+					isShowDialog: false
+				},
+				mutations: {
+					setIsShowDialog(state, data) {
+						state.isShowDialog = data
+					}
+				},
+				actions: {
+					setIsShowDialogs(context, data) {
+						context.commit("setIsShowDialog", data)
+					}
+				},
+				getters: {
+					getIsShowDialog(state) {
+						return state.isShowDialog
+					}
+				}
+			})
+			Vue.component("xheader", {
+				template: `
+					<header @click="showDialog()">日日头头条</header>
+				`,
+				computed: {
+					isShowDialog() {
+						console.log(this.$store.getters.getIsShowDialog)
+						return this.$store.getters.getIsShowDialog
+					}
+				},
+				methods: {
+					showDialog() {
+						console.log(1)
+						this.$store.dispatch("setIsShowDialogs", !this.isShowDialog)
+					}
+				}
+			})
+			Vue.component("xdialog", {
+				template: `
+				<div id="actionSheet_wrap">
+				    <div class="weui-actionsheet" id="weui-actionsheet">
+				        <div class="weui-actionsheet__menu">
+				            <div class="weui-actionsheet__cell">示例菜单</div>
+				            <div class="weui-actionsheet__cell">示例菜单</div>
+				            <div class="weui-actionsheet__cell">示例菜单</div>
+				            <div class="weui-actionsheet__cell">示例菜单</div>
+				        </div>
+				        <div class="weui-actionsheet__action">
+				            <div class="weui-actionsheet__cell" id="actionsheet_cancel">取消</div>
+				        </div>
+				    </div>
+				    <transition name="fade">
+					    <div class="weui-skin_android" v-show="isShowDialog" id="weui-android-actionsheet" style="display: none">
+					        <div class="weui-actionsheet">
+					            <div class="weui-actionsheet__menu">
+					                <div class="weui-actionsheet__cell">示例菜单</div>
+					                <div class="weui-actionsheet__cell">示例菜单</div>
+					                <div class="weui-actionsheet__cell">示例菜单</div>
+					            </div>
+					        </div>
+					    </div>
+				    </transition>
+				    <p>{{isShowDialog}}</p>
+				</div>
+				`,
+				computed: {
+					isShowDialog() {
+						console.log(this.$store.getters.getIsShowDialog)
+						return this.$store.getters.getIsShowDialog
+					}
+				},
+				methods: {
+					hideDialog() {
+						this.$store.dispatch("setIsShowDialogs", false)
+					}
+				}
+			})
+			new Vue({
+				el: "#demo",
+				store
+			})
+		</script>
+	</body>
+
+</html>

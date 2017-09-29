@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<!--MVC-->
+		<!--View-->
+		<div id="demo">
+			<!--表达式-->
+			{{text}}
+		</div>
+		<div id="demo2">
+			<!--表达式-->
+			{{text}}
+		</div>
+		<!--MVC  MV-->
+		<script src="../js/vue.js"></script>
+		<script>
+			new Vue({
+				//elemente获取节点
+				el:"#demo",
+				//数据模型 Model
+				data:{
+					text:"hello world"
+				}
+			})
+			new Vue({
+				//elemente获取节点
+				el:"#demo2",
+				data:{
+					text:"laoyao"
+				}
+			})
+		</script>
+	</body>
+</html>

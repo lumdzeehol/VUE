@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="demo">
+			<p>{{name|ed}}</p>
+			<p>{{num|currency}}</p>
+		</div>
+		<script src="../../js/vue.js"></script>
+		<script>
+			Vue.filter("ed",function(value){
+				return value+"ed";
+				//console.log(value)
+			})
+			Vue.filter("currency",function(value,params1){
+				console.log(arguments)
+				return "￥"+value+".00";
+				//console.log(value)
+			})
+			new Vue({
+				el:"#demo",
+				data:{
+					name:"laoyao",
+					num:123
+				},
+				
+			})
+		</script>
+	</body>
+</html>

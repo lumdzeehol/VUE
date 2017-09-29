@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+    </head>
+    <body>
+
+        <div id="op" >
+            {{name}}
+            <p v-text="age"></p>
+            <p :style="color">{{name}}</p>
+            <p v-if="bool">{{name}}</p>
+            <ul>
+                <li v-for="item in arr">
+                    {{item}}
+                </li>
+            </ul>
+        </div>
+        <button>click</button>
+        <script src="vue.js"></script>
+        <script type="text/javascript">
+        var app = new Vue({
+            el: '#op',
+            data:{
+                name: "ldh",
+                age: "13",
+                color: "color:red;",
+                bool: true,
+                arr:[1,2,3,4]
+            }
+        })
+        document.querySelector('button').onclick = function(){
+            app.bool = !app.bool
+        }
+        </script>
+    </body>
+</html>

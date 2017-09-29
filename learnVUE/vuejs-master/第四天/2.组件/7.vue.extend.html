@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="demo">
+			<xheader></xheader>
+		</div>
+		<script src="../../js/vue.js"></script>
+		<script src="../../js/vue-router.js"></script>
+		<script>
+			//定义
+			/*var xheader = Vue.extend({
+				template:"<p>文本</p>"
+			})*/
+			var xheader = {
+				template:"<p>文本</p>"
+			}
+			//注册
+			//全局注册
+			//Vue.component("xheader",xheader)
+			//使用
+			new Vue({
+				el:"#demo",
+				components:{
+					//局部注册
+					xheader
+				}
+			})
+		</script>
+	</body>
+</html>

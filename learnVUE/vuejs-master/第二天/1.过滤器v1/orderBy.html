@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="demo">
+			<input v-model="search" />
+			<select v-model="select">
+				<option value="name">name</option>
+				<option value="age">age</option>
+			</select>
+			<button @click="order=-order">排序</button>
+			<ul>
+				<!--vue-->
+				<li v-for="n in news|filterBy search in select|orderBy select order">{{n.name}}{{n.age}}</li>
+			</ul>
+		</div>
+		<script src="../../js/vue1.js"></script>
+		<script>
+			new Vue({
+				el:"#demo",
+				data:{
+					search:"",
+					select:"age",
+					order:1,
+					news:[{
+						name:"laoyao",
+						age:16
+					},{
+						name:"laoxie",
+						age:28
+					},{
+						name:"laolan",
+						age:26
+					}]
+				}
+			})
+		</script>
+	</body>
+</html>

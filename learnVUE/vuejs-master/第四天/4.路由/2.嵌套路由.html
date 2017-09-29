@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<div id="demo">
+			<router-view></router-view>
+		</div>
+		<script src="../../js/vue.js"></script>
+		<script src="../../js/vue-router.js"></script>
+		<script>
+			//1.定义组件
+			var xhome = {
+				template: `
+					<div>
+						<router-view></router-view>
+						<a href = "#/home/a">主页</a>
+						<a href = "#/home/b">个人中心</a>
+					</div>
+				`
+			}
+			var xdetail = {
+				template: "<p>xdetail页面</p>"
+			}
+
+			//2. 定义路由
+			var routes = [{
+					path: '/home',
+					component: xhome,
+					children: [{
+						path: 'a',
+						component: {
+							template: `
+								<div>
+									<ul>
+										<li><a href="#detail">1</a></li>
+										<li><a href="#detail">2</a></li>
+										<li><a href="#detail">3</a></li>
+									</ul>
+									<router-view></router-view>
+								</div>
+							`
+						},
+						children:[{
+							path:'c',
+							component:{
+								template:"<p>c</p>"
+							}
+						},{
+							path:'d',
+							component:{
+								template:"<p>d</p>"
+							}
+						}]
+					}, {
+						path: 'b',
+						component: {
+							template: "<p>个人中心</p>"
+						}
+					}]
+				},
+				{
+					path: '/detail',
+					component: xdetail
+				}
+			]
+
+			//3. 创建 router 实例，然后传 `routes` 配置
+			var router = new VueRouter({
+				routes // （缩写）相当于 routes: routes
+			})
+
+			new Vue({
+				el: "#demo",
+				components: {
+
+				},
+				router
+			})
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="demo">
+			<ul>
+				<li v-for="a in arr" v-if="a.bool">
+					<p v-if="a.isAd">这一条是广告</p>
+					{{a.name}}
+				</li>
+			</ul>
+		</div>
+		<script src="../js/vue.js"></script>
+		<script>
+			new Vue({
+				el:"#demo",
+				data:{
+					name:"laoyao",
+					bool:true,
+					arr:[{
+						name:"laoyao",
+						skill:"PS",
+						bool:true,
+						isAd:false
+					},{
+						name:"laoxie",
+						skill:"JS",
+						bool:true,
+						isAd:false
+					},{
+						name:"laolan",
+						skill:"CSS",
+						bool:true,
+						isAd:true
+					}]
+				}
+			})
+		</script>
+	</body>
+</html>

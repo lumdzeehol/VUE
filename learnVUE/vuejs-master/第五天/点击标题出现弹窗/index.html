@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="../../css/weui.css" />
+	</head>
+	<style>
+		header {
+			background-color: red;
+			text-align: center;
+			color: white;
+			width: 100%;
+			line-height: 50px;
+			height: 50px;
+		}
+	</style>
+	<body>
+		<div id="demo">
+			<xheader></xheader>
+			<xdialog></xdialog>
+		</div>
+		<script src="../../js/vue.js"></script>
+		<script src="../../js/vuex.js"></script>
+		<script>
+			var store = new Vuex.Store({
+				state:{
+					isShowDialog:false
+				},
+				mutations:{
+					setIsShowDialog(state,data){
+						state.isShowDialog = data
+					}
+				},
+				actions:{
+					setIsShowDialogs(context, data){
+						context.commit("setIsShowDialog",data)
+					}
+				},
+				getters:{
+					getIsShowDialog(state){
+						return state.isShowDialog
+					}
+				}
+			})
+			Vue.component("xheader",{
+				template:`
+					<header @click="showDialog()">日日头头条</header>
+				`,
+				methods:{
+					showDialog(){
+						this.$store.dispatch("setIsShowDialogs",true)
+					}
+				}
+			})
+			Vue.component("xdialog",{
+				template:`
+					<div class="weui-dialog" v-show="isShowDialog">
+						<div class="weui-dialog__hd"><strong class="weui-dialog__title">弹窗标题</strong></div>
+						<div class="weui-dialog__bd">弹窗内容，告知当前状态、信息和解决方法，描述文字尽量控制在三行内</div>
+						<div class="weui-dialog__ft">
+							<a href="javascript:;" class="weui-dialog__btn weui-dialog__btn_default">辅助操作</a>
+							<a href="javascript:;" @click="hideDialog" class="weui-dialog__btn weui-dialog__btn_primary">主操作</a>
+						</div>
+					</div>
+				`,
+				computed:{
+					isShowDialog(){
+						console.log(this.$store.getters.getIsShowDialog)
+						return this.$store.getters.getIsShowDialog
+					}
+				},
+				methods:{
+					hideDialog(){
+						this.$store.dispatch("setIsShowDialogs",false)
+					}
+				}
+			})
+			new Vue({
+				el:"#demo",
+				store
+			})
+		</script>
+	</body>
+
+</html>

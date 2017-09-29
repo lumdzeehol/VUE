@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<style>
+			#cp1 {
+				padding: 50px;
+				border: 1px solid red;
+			}
+			
+			#cp2 {
+				padding: 50px;
+				border: 1px solid green;
+			}
+		</style>
+		<div id="demo">
+
+		</div>
+		<script src="../js/vue.js"></script>
+		<script src="../js/vuex.js"></script>
+		<script>
+			var store = new Vuex.Store({
+				//保存数据的状态
+				//公有数据
+				state: {
+					name: "laolan",
+					skill: "ps"
+				},
+				//mutations真正改数据的方法
+				mutations: {
+					setName: function(state, data) {
+						state.name = data
+					},
+					setSkill: function(state, data) {
+						state.skill = data
+					}
+				},
+				//action触发多个mutations
+				actions: {
+					setPeople(context, data) {
+						context.commit('setName', data.name)
+						context.commit('setSkill', data.skill)
+					}
+				}
+			})
+			//Vue.extend
+			var a = {
+				template: `
+					<div id="cp1">
+						<input v-model="name" />
+						<input v-model="skill" />
+						<button @click="submit">提交数据</button>
+					</div>`,
+				data() {
+					//私有数据
+					return {
+						name: "laoyao",
+						skill: "ps"
+					}
+				},
+				methods: {
+					submit() {
+						//触发mutations的setName方法
+						//this.$store.commit('setName', this.name);
+						//action(setNames)--commit-->mutations(setName)->state
+						this.$store.dispatch('setPeople', {
+							name:this.name,
+							skill:this.skill
+						})
+					}
+				},
+				mounted() {
+					console.log(this.$store)
+				}
+			}
+			var b = {
+				template: `
+					<div id="cp2">
+						<input v-model="name" />
+						<p>{{name}}</p>
+						<p>{{skill}}</p>
+					</div>`,
+				data() {
+					return {
+						//name: "laoxie"
+					}
+				},
+				computed: {
+					name() {
+						return this.$store.state.name
+					},
+					skill(){
+						console.log(this.$store.state.skill)
+						return this.$store.state.skill
+					}
+				},
+				mounted() {
+					console.log(this.$store)
+				}
+			}
+			new Vue({
+				el: "#demo",
+				template: `
+					<div>
+						<aa></aa>
+						<bb></bb>
+					</div>
+				`,
+				components: {
+					'aa': a,
+					'bb': b
+				},
+				store
+			})
+		</script>
+	</body>
+
+</html>

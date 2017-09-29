@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<style>
+		.red {
+			color: red;
+		}
+		
+		.blue {
+			color: blue;
+		}
+	</style>
+
+	<body>
+		<div id="demo">
+			<p style="color: red;">1.v-for和v-if</p>
+			<ul>
+				<li v-for="a in arr" v-if="a.bool">
+					<p v-if="a.isAd">这一条是广告</p>
+					{{a.name}}
+				</li>
+			</ul>
+
+			<p style="color: red;">2.v-html</p>
+			<!--1.富文本编辑器   2.xss-->
+			<div v-html="html"></div>
+
+			<p style="color: red;">3.v-show</p>
+			<!--css display-->
+			<p v-show="bool">显示或者隐藏</p>
+			<!--增加或者删除节点-->
+			<p v-if="bool">显示或者隐藏</p>
+
+			<p style="color: red;">4.v-if&v-else</p>
+			<p v-if="!bool">真</p>
+			<p v-else>假</p>
+
+			<p style="color: red;">5.v-for</p>
+			<div v-for="a in arr">
+				<input :placeholder="a.name" />
+				<br />
+			</div>
+
+			<p style="color: red;">6.v-on</p>
+			<!--on onclick addEventlistener("click",function(e))-->
+			<button v-on:click="submit()">OK</button>
+			<button v-on:click="submit">OK</button>
+			<button @click="submit">OK</button>
+			<input @keyup="ku()" />
+			<ul @click="sjwt($event)">
+				<li>1</li>
+				<li>2</li>
+				<li>3</li>
+				<li>4</li>
+			</ul>
+
+			<p style="color: red;">6.v-bind:/:</p>
+			<p :class="{red:isRed,blue:!isRed}">{{name}}</p>
+			<button @click="isRed=!isRed">切换颜色</button>
+			
+			<input type="range" v-model="size" />
+			<p :style="{color:'red',fontSize:size+'px'}">{{name}}</p>
+			
+			<p v-bind:name="name">v-bind:name</p>
+			<p :name="name">v-bind:name</p>
+			<p :id="name">v-bind:name</p>
+			<img :src="src" />
+		</div>
+		<script src="../../js/vue.js"></script>
+		<script>
+			new Vue({
+				el: "#demo",
+				data: {
+					//HTML str bool num (obj array function)
+					name: "laoyao",
+					src:"../../img/1.jpg",
+					bool: true,
+					isRed:true,
+					size:30,
+					html: "<p>123<span>456</span></p>",
+					arr: [{
+						name: "laoyao",
+						skill: "PS",
+						bool: true,
+						isAd: false
+					}, {
+						name: "laoxie",
+						skill: "JS",
+						bool: true,
+						isAd: false
+					}, {
+						name: "laolan",
+						skill: "CSS",
+						bool: true,
+						isAd: true
+					}]
+				},
+				//定义函数
+				methods: {
+					submit: function() {
+						console.log("test")
+					},
+					ku: function() {
+						console.log("触发一个keyup事件")
+					},
+					sjwt: function(e) {
+						console.log(e)
+					}
+				}
+			})
+		</script>
+	</body>
+
+</html>

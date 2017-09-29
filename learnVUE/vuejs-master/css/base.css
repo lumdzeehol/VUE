@@ -1,0 +1,26 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+header{
+	background-color: red;
+	text-align: center;
+	color: white;
+	width: 100%;
+	line-height: 50px;
+	height: 50px;
+}
+.weui-galleryed{
+	display: block!important;
+}
+.weui-gallerye-animate{
+	animation: scalee .5s ease;
+}
+@keyframes scalee{
+	from{
+		transform: scale(0);
+	}
+	to{
+		transform: scale(1);
+	}
+}

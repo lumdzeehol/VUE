@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<div id="demo">
+			<!--<a href="#/home">home</a>-->
+			<router-link to="/home">home</router-link>
+			<a href="#/setting">setting</a>
+			
+			<button @click="toHome">home</button>
+			<router-view></router-view>
+		</div>
+		<script src="../../js/vue.js"></script>
+		<script src="../../js/vue-router.js"></script>
+		<script>
+			//1.定义组件
+			var xhome = {
+				template: "<p>xhome页面</p>",
+				beforeDestroy(){
+					console.log("组件被销毁")
+				}
+				
+			}
+			var xsetting = {
+				template: "<p>xsetting页面</p>"
+			}
+
+			//2. 定义路由
+			var routes = [{
+					path: '/home',
+					component: xhome
+				},
+				{
+					path: '/setting',
+					component: xsetting
+				}
+			]
+
+			//3. 创建 router 实例，然后传 `routes` 配置
+			var router = new VueRouter({
+				routes // （缩写）相当于 routes: routes
+			})
+
+			new Vue({
+				el: "#demo",
+				components: {
+
+				},
+				router,
+				methods:{
+					toHome(){
+						router.push('home')
+					}
+				}
+			})
+		</script>
+	</body>
+
+</html>

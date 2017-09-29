@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<!--view-->
+		<div id="demo">
+
+			<p style="color: red;">1.input</p>
+			<input v-model="skill" />
+			<p>{{skill}}</p>
+
+			<p style="color: red;">2.select</p>
+			<select v-model="goods">
+				<option v-for="o in arr" v-bind:value="o.id">{{o.name}}</option>
+			</select>
+			<p>你选择了:</p>
+			<p v-show="goods==1">手机</p>
+			<p v-show="goods==2">电脑</p>
+			<p v-show="goods==3">面膜</p>
+
+			<p style="color: red;">3.textarea</p>
+			<textarea v-model="ta"></textarea>
+		</div>
+		<!--
+			m->v    v-text/{{}}/v-html/{{}}
+			v->m    v-model
+			
+			MVVM框架
+		-->
+		<script src="../../js/vue.js"></script>
+		<script>
+			new Vue({
+				el: "#demo",
+				data: {
+					ta:"我这是是texaarea",
+					//model
+					goods:2,
+					name: "laoyao",
+					skill: "",
+					arr: [{
+						name: "电脑",
+						id: 2
+					}, {
+						name: "手机",
+						id: 1
+					}, {
+						name: "面膜",
+						id: 3
+					}]
+				}
+			})
+		</script>
+	</body>
+
+</html>

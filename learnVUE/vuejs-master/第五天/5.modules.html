@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<style>
+			#cp1 {
+				padding: 50px;
+				border: 1px solid red;
+			}
+			
+			#cp2 {
+				padding: 50px;
+				border: 1px solid green;
+			}
+		</style>
+		<div id="demo">
+
+		</div>
+		<script src="../js/vue.js"></script>
+		<script src="../js/vuex.js"></script>
+		<script>
+			var moduleA = {
+				state: {
+					name: "laolan"
+				},
+				mutations: {
+					setName: function(state) {
+						state.name = "lanmeng"
+					}
+				}
+			}
+			var store = new Vuex.Store({
+				modules: {
+					a:moduleA
+				}
+			})
+			//Vue.extend
+			var a = {
+				template: `
+					<div id="cp1">
+						<input v-model="name" />
+						<p>{{computedName}}</p>
+					</div>`,
+				data() {
+					return {
+						name: "laoyao"
+					}
+				},
+				mounted() {
+					console.log(this.$store)
+				},
+				computed: {
+					computedName() {
+						//console.log(this.name)
+						this.$store.state.a.name = this.name;
+						//console.log(this.$store)
+						return this.name
+					}
+				}
+			}
+			var b = {
+				template: `
+					<div id="cp2">
+						<input v-model="name" />
+						<p>{{name}}</p>
+					</div>`,
+				data() {
+					return {
+						//name: "laoxie"
+					}
+				},
+				computed: {
+					name() {
+						return this.$store.state.a.name
+					}
+				},
+				mounted() {
+					console.log(this.$store)
+				}
+			}
+			new Vue({
+				el: "#demo",
+				template: `
+					<div>
+						<aa></aa>
+						<bb></bb>
+					</div>
+				`,
+				components: {
+					'aa': a,
+					'bb': b
+				},
+				store
+			})
+		</script>
+	</body>
+
+</html>

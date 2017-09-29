@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<style>
+		.xheader {
+			border: 1px solid #58bc58;
+		}
+		
+		.x-container {
+			border: 1px solid red;
+		}
+		
+		.x-footer {
+			border: 1px solid blue;
+		}
+	</style>
+
+	<body>
+		<div id="demo">
+		</div>
+		<script src="../../js/vue.js"></script>
+		<script>
+			//Vue.component(tagName, options)
+			//组件名字不要跟原生标签名重复
+			Vue.component("xheader", {
+				template: `
+					<div class="xheader">
+						<header>头部</header>
+						<p>副标题</p>
+					</div>
+				`
+			})
+			new Vue({
+				el: "#demo",
+				template: `
+					<div>
+						<xheader></xheader>
+						<xheader></xheader>
+						<x-container></x-container>
+						<x-footer></x-footer>
+					</div>
+				`,
+				components: {
+					'x-container': {
+						template: `
+							<div class="x-container">
+								<header>内容体</header>
+								<ul>
+									<li>1</li>
+									<li>2</li>
+									<li>3</li>
+								</ul>
+							</div>
+						`
+
+					},
+					'x-footer': {
+						template: `
+							<div class="x-footer">
+								<footer>底部</footer>
+							</div>
+						`
+					}
+				}
+			})
+		</script>
+	</body>
+
+</html>

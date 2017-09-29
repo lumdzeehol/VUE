@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		
+		body {
+			height: 100%;
+			width: 100%;
+		}
+		
+		li {
+			/*height: 120px;*/
+			border-bottom: 1px solid gray;
+			padding: 50px;
+		}
+		
+		#fixed {
+			/*height: 90%;*/
+			/*可以不定义高度用bottom来代替*/
+			bottom: 0;
+			width: 100%;
+			overflow: auto;
+			position: absolute;
+			transition: all 1s;
+			top: 10%
+		}
+		
+		.transTop {
+			transition: all 1s;
+		}
+		
+		header {
+			text-align: center;
+			height: 10%;
+			width: 100%;
+			position: fixed;
+			line-height: 400%;
+		}
+	</style>
+
+	<body>
+		<div id="demo">
+			<header>下拉刷新</header>
+			<div id="fixed" v-scroll="loadMore">
+				<ul>
+					<li v-for="n in news">{{n.title}}</li>
+				</ul>
+			</div>
+		</div>
+		<script src="../../js/vue.js"></script>
+		<script src="../../js/jquery.js"></script>
+		<script>
+			Vue.directive("scroll", {
+				bind: function(el, binding) {
+					el.addEventListener("scroll", function(e) {
+						console.log(e.target.offsetHeight);
+						console.log(e.target.scrollTop);
+						console.log(e.target.scrollHeight)
+
+						if(e.target.offsetHeight + e.target.scrollTop >= e.target.scrollHeight) {
+							binding.value()
+						}
+					})
+				}
+			})
+			/*Vue.directive("toheader", {
+				bind: function(el, binding) {
+					el.addEventListener("click", function() {
+						console.log(document.querySelector("#fixed").scrollTop)
+						console.log(window.scrollY)
+						var scrollTop = window.scrollY;
+						//var scrollTop = document.body.scrollTop;
+						var timer = setInterval(function() {
+							scrollTop = scrollTop - 20;
+							if(scrollTop <= 0) {
+								clearInterval(timer)
+							}
+						}, 50)
+					})
+				}
+			})*/
+			new Vue({
+				el: "#demo",
+				data: {
+					news: []
+				},
+				methods: {
+					loadMore() {
+						var self = this;
+						$.ajax({
+							type: "GET",
+							url: "http://localhost:81/1704/vuejs/第三天/3.下拉刷新/qqnews.json",
+							data: {
+
+							},
+							success: function(data) {
+								self.news = self.news.concat(data.newslist)
+								console.log(self.news)
+							}
+						})
+					}
+				},
+				mounted() {
+					//第一次触发请求
+					this.loadMore()
+				}
+			})
+		</script>
+	</body>
+
+</html>

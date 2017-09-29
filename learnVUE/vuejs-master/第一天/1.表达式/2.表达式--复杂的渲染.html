@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<!--MVC-->
+		<!--View-->
+		<div id="demo" v-text="text">
+			<!--表达式-->
+			<!--{{text}}-->
+		</div>
+		<script src="../js/vue.js"></script>
+		<script>
+			//{{text}}==>hello world
+			new Vue({
+				//elemente获取节点
+				el:"#demo",
+				//数据模型 Model
+				data:{
+					text:"hello world"
+				}
+			})
+		</script>
+	</body>
+</html>

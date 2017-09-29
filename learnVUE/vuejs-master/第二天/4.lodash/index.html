@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<div id="demo">
+			<select v-model="select">
+				<option value="name">name</option>
+				<option value="age">age</option>
+			</select>
+			<ul>
+				<li v-for="u in orderedUsers">{{u.name}}{{u.age}}</li>
+			</ul>
+		</div>
+		<script src="../../js/vue.js"></script>
+		<script src="../../js/lodash.js"></script>
+		<!--
+			http://lodashjs.com/docs/#_sortbycollection-iteratee_identity-thisarg
+			http://lodashjs.com/docs/
+			lodash中文文档
+		-->
+		<script>
+			new Vue({
+				el: "#demo",
+				data: {
+					users:[{
+						name:"laoyao",
+						age:18
+					},{
+						name:"laolan",
+						age:16
+					},{
+						name:"laoxie",
+						age:20
+					}],
+					select:"name"
+				},
+				computed: {
+					orderedUsers() {
+						return _.orderBy(this.users, this.select)
+					}
+				}
+
+			})
+		</script>
+	</body>
+
+</html>
